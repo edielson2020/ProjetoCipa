@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:aplicacao_prova/service/service_bd.dart';
 
 class LimpaRegistro extends StatefulWidget {
   LimpaRegistro({Key key}) : super(key: key);
@@ -9,15 +10,23 @@ class LimpaRegistro extends StatefulWidget {
 }
 
 class _LimpaRegistroState extends State<LimpaRegistro> {
+  SQLiteService sqLiteService;
+
+  @override
+  void initState() {
+    sqLiteService = SQLiteService();
+    sqLiteService.inicializacao();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Limpar Registros'),
-        backgroundColor: Colors.green[800],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
           padding: EdgeInsets.all(10),
           child: Column(children: <Widget>[
             SizedBox(height: 180),
@@ -28,7 +37,7 @@ class _LimpaRegistroState extends State<LimpaRegistro> {
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(07.0),
                     side: BorderSide(
-                      color: Colors.green[800],
+                      color: Colors.blue,
                     )),
                 onPressed: () {
                   return Alert(
@@ -38,7 +47,7 @@ class _LimpaRegistroState extends State<LimpaRegistro> {
                       desc: "Excluir Registros",
                       buttons: [
                         DialogButton(
-                          color: Colors.green[800],
+                          //color: Colors.green[800],
                           child: Text(
                             'sim',
                             style: TextStyle(
@@ -47,11 +56,12 @@ class _LimpaRegistroState extends State<LimpaRegistro> {
                             ),
                           ),
                           onPressed: () {
+                            sqLiteService.limparRegistros();
                             Navigator.pop(context);
                           },
                         ),
                         DialogButton(
-                          color: Colors.green[800],
+                          //color: Colors.green[800],
                           child: Text(
                             'não',
                             style: TextStyle(
@@ -72,7 +82,7 @@ class _LimpaRegistroState extends State<LimpaRegistro> {
                     fontSize: 29,
                   ),
                 ),
-                color: Colors.green[800],
+                //color: Colors.green[800],
               ),
             ),
           ])),

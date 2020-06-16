@@ -15,10 +15,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Tela Principal'),
-          backgroundColor: Colors.green[800],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(10),
+        body: SingleChildScrollView(
+        padding: EdgeInsets.all(10),
 
           ///teste de texto
 
@@ -33,7 +32,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(07.0),
                       side: BorderSide(
-                        color: Colors.green[800],
+                        color: Colors.blue,
                       )),
                   onPressed: () {
                     Navigator.pushNamed(context, '/telaCadastro');
@@ -45,7 +44,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       fontSize: 29,
                     ),
                   ),
-                  color: Colors.green[800],
                 ),
               ),
               SizedBox(height: 20),
@@ -56,7 +54,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(07.0),
                       side: BorderSide(
-                        color: Colors.green[800],
+                        color: Colors.blue,
                       )),
                   onPressed: () {
                     Navigator.pushNamed(context, '/telaVotar');
@@ -68,7 +66,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       fontSize: 29,
                     ),
                   ),
-                  color: Colors.green[800],
                 ),
               ),
               SizedBox(height: 20),
@@ -79,7 +76,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(07.0),
                       side: BorderSide(
-                        color: Colors.green[800],
+                        color: Colors.blue,
                       )),
                   onPressed: () {
                     Navigator.pushNamed(context, '/telaVisualizar');
@@ -91,7 +88,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       fontSize: 29,
                     ),
                   ),
-                  color: Colors.green[800],
                 ),
               ),
               SizedBox(height: 20),
@@ -102,7 +98,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(07.0),
                       side: BorderSide(
-                        color: Colors.green[800],
+                        color: Colors.blue,
                       )),
                   onPressed: () {
                     Navigator.pushNamed(context, '/telaLimpar');
@@ -114,7 +110,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       fontSize: 29,
                     ),
                   ),
-                  color: Colors.green[800],
                 ),
               ),
               //botao teste

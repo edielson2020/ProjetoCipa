@@ -1,15 +1,15 @@
-class Funcionario {
+class Votacao {
   final String nome;
   final int numero;
-  final int tipo;
+  final int votos;
 
-  Funcionario({this.nome, this.numero, this.tipo});
+  Votacao({this.nome, this.numero, this.votos});
 
   Map<String,dynamic> toMap(){
     return {
       'nome': nome,
       'numero': numero,
-      'tipo': tipo
+      'votos': votos
     };
   }  
 }

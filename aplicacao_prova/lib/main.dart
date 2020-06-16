@@ -24,6 +24,10 @@ void main(){
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
+
+        /// asimmm do android pesa demais
+        /// vou mostrar duas classes que foi criada
+        /// 
         '/': (context) => TelaPrincipal(),
         '/telaCadastro': (context) => CadastroFuncionario(),
         '/telaVotar': (context) => Votar(),

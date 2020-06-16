@@ -1,4 +1,7 @@
+import 'package:aplicacao_prova/model/funcionario.dart';
 import 'package:flutter/material.dart';
+import 'package:aplicacao_prova/service/service_bd.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CadastroFuncionario extends StatefulWidget {
   CadastroFuncionario({Key key}) : super(key: key);
@@ -8,81 +11,98 @@ class CadastroFuncionario extends StatefulWidget {
 }
 
 class _CadastroFuncionarioState extends State<CadastroFuncionario> {
-  final _formKey = GlobalKey<FormState>();
-  final _textController = TextEditingController();
-  final _textController1 = TextEditingController();
+  final nomeController = TextEditingController();
+  final numeroController = TextEditingController();
+  SQLiteService sqLiteService;
+
+  final _formkey = GlobalKey<FormState>();
   //final format = Data ("dd-MM-yyyy");
+
+  @override
+  void initState() {
+    sqLiteService = SQLiteService();
+    sqLiteService.inicializacao();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Cadastro"),
-          backgroundColor: Colors.green[800],
-        ),
-        body: Builder(builder: (BuildContext context) {
-          return Form(
-            key: _formKey,
+        appBar: AppBar(centerTitle: true, title: Text("Cadastro")),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
+          child: Form(
+            key: _formkey,
             child: Column(
-              children: <Widget>[
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                        labelText: "Nome Completo",
-                        suffixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        )),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Entre com o nome";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    controller: _textController1,
-                    decoration: InputDecoration(
-                        labelText: "Seu Número",
-                        suffixIcon: Icon(Icons.dvr),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        )),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Entre com Seu Número";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                ///teste de imagem
-
-                ///fim do teste
-
+              children: [
                 SizedBox(height: 30),
-
+                TextFormField(
+                  controller: nomeController,
+                  decoration: InputDecoration(
+                      labelText: "Nome Completo",
+                      suffixIcon: Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      )),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Entre com o nome";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30),
+                TextFormField(
+                  controller: numeroController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: "Seu Número",
+                      suffixIcon: Icon(Icons.keyboard),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      )),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Entre com Seu Número";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30),
                 ButtonTheme(
                   minWidth: 150.0,
                   height: 50.0,
                   child: RaisedButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(07.0),
-                        side: BorderSide(color: Colors.green[800])),
+                        side: BorderSide(color: Colors.blue)),
                     onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text('Cadastro Finalizado com sucesso '),
-                        ));
-                      }
+                      sqLiteService.insertFuncionario(Funcionario(
+                        nome: nomeController.text,
+                        numero: int.parse(numeroController.text),
+                      ));
+
+                      /// mensagem
+                      return Alert(
+                          context: context,
+                          title: "Cadastro finalizado com sucesso!",
+                          desc: "Obrigado",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                'Ok',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/');
+                              },
+                            ),
+                          ]).show();
+
+                      ///
                     },
                     child: Text(
                       'Cadastrar',
@@ -91,12 +111,11 @@ class _CadastroFuncionarioState extends State<CadastroFuncionario> {
                         fontSize: 20,
                       ),
                     ),
-                    color: Colors.green[800],
                   ),
                 ),
               ],
             ),
-          );
-        }));
+          ),
+        ));
   }
 }
